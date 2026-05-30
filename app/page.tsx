@@ -8,6 +8,7 @@ import TaskForm from "../components/TaskForm";
 
 export default function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
+  console.log(tasks)
   useEffect(() => {
 //GET
     async function fetchTasks() {

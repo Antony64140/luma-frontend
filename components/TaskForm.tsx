@@ -8,7 +8,9 @@ interface TaskFormProps {
 export default function TaskForm({
   onAddTask,}: TaskFormProps) {
   const [title, setTitle] = useState("");
-  function handleSubmit() {
+  function handleSubmit(e: React.FormEvent) {
+     e.preventDefault();
+
   const trimmedTitle = title.trim();
    if (trimmedTitle.length < 1) {
     return;}
@@ -17,16 +19,16 @@ export default function TaskForm({
   onAddTask(trimmedTitle);
     setTitle(""); }
   return (
-    <div>
+    <form onSubmit={handleSubmit}>
       <input
         type="text"
         placeholder="Nouvelle tâche"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         maxLength={50}/>
-      <button onClick={handleSubmit}>
+      <button type='submit'>
         Ajouter
       </button>
-    </div>
+    </form>
   );
 }
