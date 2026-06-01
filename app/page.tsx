@@ -9,9 +9,15 @@ import {
   updateTask,
   editTask,
 } from "../services/tasks";
-
 import TaskList from "../components/TaskList";
 import TaskForm from "../components/TaskForm";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 
 export default function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -74,12 +80,36 @@ export default function Home() {
     } catch (error) {
       console.error(error);}}
   return (
-    <main>
-      <h1>Luma</h1>
-      <TaskForm onAddTask={handleAddTask} />
-      <TaskList
-        tasks={tasks}
-        onDeleteTask={handleDeleteTask}
-        onToggleTask={handleToggleTask}
-        onEditTask={handleEditTask}/>
-    </main>);}
+  <main className="min-h-screen bg-green-100 flex items-center justify-center p-6">
+    <Card className="w-full max-w-2xl rounded-3xl border border-green-100 bg-white/95 shadow-xl">
+      <CardHeader className="text-center space-y-3 pt-10">
+        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100 text-green-700">
+          ✦
+        </div>
+
+        <CardTitle className="text-4xl font-semibold tracking-tight text-green-950">
+          Luma
+        </CardTitle>
+
+        <CardDescription className="text-base text-slate-500">
+          Une seule chose à garder en tête.
+        </CardDescription>
+      </CardHeader>
+
+      <CardContent className="space-y-6 px-8 pb-10">
+        <TaskForm onAddTask={handleAddTask} />
+
+        <TaskList
+          tasks={tasks}
+          onDeleteTask={handleDeleteTask}
+          onToggleTask={handleToggleTask}
+          onEditTask={handleEditTask}
+        />
+
+        <p className="text-center text-sm text-slate-400">
+          Tu avances. Pas à pas.
+        </p>
+      </CardContent>
+    </Card>
+  </main>
+);}

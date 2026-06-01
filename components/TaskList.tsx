@@ -14,8 +14,16 @@ export default function TaskList({
   onToggleTask,
   onEditTask,
 }: TaskListProps) {
+  if (tasks.length === 0) {
+    return (
+      <p className="text-center text-sm text-slate-400">
+        Aucune tâche pour le moment.
+      </p>
+    );
+  }
+
   return (
-    <div>
+    <div className="space-y-3">
       {tasks.map((task) => (
         <TaskItem
           key={task._id}
