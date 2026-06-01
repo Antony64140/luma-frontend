@@ -1,9 +1,13 @@
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
+if (!API_URL) {
+  throw new Error("NEXT_PUBLIC_API_URL is not defined");
+}
 //GET
 export async function getTasks() {
  try {
     const response = await fetch(
-      'http://localhost:3000/tasks'
+      `${API_URL}/tasks`
     );
 
     if (!response.ok) {
@@ -21,7 +25,7 @@ export async function getTasks() {
 export async function createTask(title: string) {
    try {
     const response = await fetch(
-      "http://localhost:3000/tasks",
+       `${API_URL}/tasks`,
       {
         method: "POST",
         headers: {
@@ -41,7 +45,7 @@ export async function createTask(title: string) {
 export async function deleteTask(id: string) {
    try {
     const response = await fetch(
-      `http://localhost:3000/tasks/${id}`,{
+      `${API_URL}/tasks/${id}`,{
         method: "DELETE",});
     if (!response.ok) {
       throw new Error("Erreur suppression tâche");}
@@ -54,7 +58,7 @@ export async function deleteTask(id: string) {
 export async function updateTask(id: string) {
  try {
     const response = await fetch(
-      `http://localhost:3000/tasks/${id}`,{
+      `${API_URL}/tasks/${id}`,{
         method: "PUT",});
     if (!response.ok) {
       throw new Error("Erreur modification tâche");}
@@ -70,7 +74,7 @@ export async function editTask(
   title: string) {
   try {
     const response = await fetch(
-      `http://localhost:3000/tasks/${id}/title`,{
+      `${API_URL}/tasks/${id}/title`,{
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
