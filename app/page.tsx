@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Task } from "../types/task";
 import { getTasks, createTask, deleteTask, updateTask, editTask,
 } from "../services/tasks";
@@ -22,28 +22,30 @@ export default function Home() {
         console.error(error);}}
     fetchTasks();}, []);
 
-  // POST
-  async function handleAddTask(title: string) {
-    try {
-      const newTask = await createTask(title);
-      setTasks((prevTasks) => [
-        ...prevTasks,
-        newTask, ]);
-    } catch (error) {
-      console.error(error);}}
+ // POST
+const handleAddTask = useCallback(async (title: string) => {
+  try {
+    const newTask = await createTask(title);
+    setTasks((prevTasks) => [
+      ...prevTasks,
+      newTask, ]);
+  } catch (error) {
+    console.error(error);}
+}, []);
 
-  // DELETE
-  async function handleDeleteTask(id: string) {
-    try {
-      await deleteTask(id);
-      setTasks((prevTasks) =>
-        prevTasks.filter(
-          (task) => task._id !== id));
-    } catch (error) {
-      console.error(error);}}
+// DELETE
+const handleDeleteTask = useCallback(async (id: string) => {
+  try {
+    await deleteTask(id);
+    setTasks((prevTasks) =>
+      prevTasks.filter(
+        (task) => task._id !== id));
+  } catch (error) {
+    console.error(error);}
+}, []);
 
-  // PUT completed
-async function handleToggleTask(id: string) {
+// PUT completed
+const handleToggleTask = useCallback(async (id: string) => {
   try {
     const updatedTask = await updateTask(id);
     setTasks((prevTasks) =>
@@ -56,23 +58,26 @@ async function handleToggleTask(id: string) {
       setTimeout(() => {
         setShowNotification(false); }, 5000); }
   } catch (error) {
-    console.error(error);}}
-  // EDIT title
-  async function handleEditTask(
-    id: string,
-    title: string
-  ) {
-    try {
-      const updatedTask = await editTask(
-        id,
-        title);
-      setTasks((prevTasks) =>
-        prevTasks.map((task) => {
-          if (task._id === id) {
-            return updatedTask;}
-          return task;}));
-    } catch (error) {
-      console.error(error);}}
+    console.error(error);}
+}, []);
+
+// EDIT title
+const handleEditTask = useCallback(async (
+  id: string,
+  title: string
+) => {
+  try {
+    const updatedTask = await editTask(
+      id,
+      title);
+    setTasks((prevTasks) =>
+      prevTasks.map((task) => {
+        if (task._id === id) {
+          return updatedTask;}
+        return task;}));
+  } catch (error) {
+    console.error(error);}
+}, []);
   return (
   <main className="min-h-screen bg-green-100 flex items-center justify-center p-6">
      {showNotification && (

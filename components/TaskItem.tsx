@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 import { Task } from "../types/task";
 
 import { Input } from "@/components/ui/input";
@@ -11,7 +11,7 @@ interface TaskItemProps {
   onEditTask: (id: string, title: string) => void;
 }
 
-export default function TaskItem({
+ function TaskItem({
   task,
   onDeleteTask,
   onToggleTask,
@@ -91,3 +91,4 @@ export default function TaskItem({
           </Button>
         </div>)}
     </div> );}
+    export default memo(TaskItem);
