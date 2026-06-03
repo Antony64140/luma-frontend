@@ -55,10 +55,7 @@ export default function TaskItem({
               maxLength={50}
               autoFocus
               className="h-9"/>
-            <Button
-              type="submit"
-              size="sm"
-              className="bg-green-700 text-white hover:bg-green-800">
+            <Button  type="submit"  size="sm"  className="bg-green-700 text-white hover:bg-green-800">
               Valider
             </Button>
             <Button
@@ -81,19 +78,13 @@ export default function TaskItem({
       </div>
       {!isEditing && (
         <div className="flex gap-2">
-          <Button
-            type="button"
-            variant="ghost"
-            size="sm"
+          <Button  type="button"   variant="ghost"    size="sm"
             onClick={() => {
               setIsEditing(true);
               setEditTitle(task.title);}}>
             Modifier
           </Button>
-          <Button
-            type="button"
-            variant="ghost"
-            size="sm"
+          <Button type="button" variant="ghost" size="sm"
             onClick={() => onDeleteTask(task._id)}
             className="text-red-400 hover:text-red-600">
             Supprimer
