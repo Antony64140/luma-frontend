@@ -1,11 +1,15 @@
 import { Task } from "../types/task";
 import TaskItem from "./TaskItem";
-
+import { useLanguage } from "@/context/LanguageContext";
 interface TaskListProps {
   tasks: Task[];
-  onDeleteTask: (id: string) => void;
-  onToggleTask: (id: string) => void;
-  onEditTask: (id: string, title: string) => void;
+  onDeleteTask: (id: string, index: number) => void;
+  onToggleTask: (id: string, index: number) => void;
+  onEditTask: (
+    id: string,
+    title: string,
+    index: number
+  ) => void;
 }
 
 export default function TaskList({
@@ -15,19 +19,21 @@ export default function TaskList({
   onEditTask,
 }: TaskListProps) {
   if (tasks.length === 0) {
+    const { t } = useLanguage();
     return (
       <p className="text-center text-sm text-slate-400">
-        Aucune tâche pour le moment.
+        {t.empty}
       </p>
     );
   }
 
   return (
     <div className="space-y-3">
-      {tasks.map((task) => (
+      {tasks.map((task, index) => (
         <TaskItem
           key={task._id}
           task={task}
+          index={index}
           onDeleteTask={onDeleteTask}
           onToggleTask={onToggleTask}
           onEditTask={onEditTask}

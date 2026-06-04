@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-
+import { useLanguage } from "@/context/LanguageContext";
 interface TaskFormProps {
   onAddTask: (title: string) => void;
 }
@@ -12,6 +12,7 @@ export default function TaskForm({
   onAddTask,
 }: TaskFormProps) {
   const [title, setTitle] = useState("");
+  const { t } = useLanguage();
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -30,7 +31,7 @@ export default function TaskForm({
     >
       <Input
         type="text"
-        placeholder="Quelle est ta prochaine tâche ?"
+        placeholder={t.placeholder}
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         maxLength={50}
@@ -39,9 +40,9 @@ export default function TaskForm({
 
       <Button
         type="submit"
-        className="bg-green-700 text-white hover:bg-green-800"
+        className="bg-green-700 text-white hover:bg-green-800 cursor-pointer"
       >
-        Ajouter
+        {t.add}
       </Button>
     </form>
   );
